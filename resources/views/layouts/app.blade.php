@@ -69,7 +69,7 @@
                     </ul>
                     <div class="navbar-nav">
                         <button type="button" class="btn btn-sm btn-success create">
-                            <a class="nav-item nav-link text-decoration-none text-white text-lg" href="/miniblogs/create">
+                            <a class="nav-item nav-link text-decoration-none text-white text-lg" href="/posts/create">
                                 Create MiniBlog
                             </a>
                         </button>

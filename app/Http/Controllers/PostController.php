@@ -26,7 +26,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -37,7 +37,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Post();
+
+        $post->title = request('title');
+        $post->post = request('post');
+        $post->save();
+
+        return redirect('/posts');
     }
 
     /**
@@ -57,9 +63,12 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
+    // , Post $post
     {
-        //
+        $post = Post::find($id);
+
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -69,9 +78,17 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update($id)
+    // Request $request, Post $post
     {
-        //
+        $post = Post::find($id);
+
+
+        $post->title = request('title');
+        $post->post = request('post');
+        $post->save();
+
+        return redirect('/posts');
     }
 
     /**
@@ -80,8 +97,11 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
+    // , Post $post
     {
-        //
+        Post::find($id)->delete();
+
+        return redirect('/posts');
     }
 }
