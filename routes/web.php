@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,13 +12,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+/*
+    Authorization Routes
+**/
 Auth::routes();
-
 Route::get('/home', 'HomeController@index');
 
+/*
+    Post Routes
+**/
 Route::resource('posts', 'PostController');
-Route::resource('comments', 'CommentController');
+Route::get('/', 'PostController@index');
+
+/*
+    Comment Routes
+**/
+Route::resource('comments', 'CommentController')->middleware('guest');
+Route::post('/posts/{post}/comments', 'CommentController@store')->middleware('guest');

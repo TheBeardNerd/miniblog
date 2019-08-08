@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Miniblog
+@endsection
+
 @section('content')
 <div class="container">
     @foreach ($posts as $post)

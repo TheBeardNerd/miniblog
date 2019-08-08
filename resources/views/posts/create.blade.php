@@ -1,31 +1,28 @@
 @extends('layouts.app')
 
+@section('title')
+    Create Post
+@endsection
+
 @section('content')
 <div class="container">
-    @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show text-left list-unstyled" role="alert">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true"><i class="fas fa-times"></i></span>
-            </button>
-        </div>
-    @endif
     <div class="card text-left">
         <div class="card-header bg-secondary text-light">
             <h3 class="mb-n1">Create Post</h3>
         </div>
         <div class="card-body">
+            @include('errors')
             <form method="POST" action="/posts">
 
                 @csrf
 
                 <div class="form-group">
-                    <input class="form-control form-control-lg {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" placeholder="Title" value="{{ old('title') }}" />
+                    <label for="title">Title:</label>
+                    <input class="form-control form-control-lg {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title"value="{{ old('title') }}" />
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control form-control-lg {{ $errors->has('title') ? 'is-invalid' : '' }}" name="post" placeholder="Post">{{ old('post') }}</textarea>
+                    <label for="post">Post:</label>
+                    <textarea class="form-control form-control-lg {{ $errors->has('post') ? 'is-invalid' : '' }}" name="post">{{ old('post') }}</textarea>
                 </div>
                 <div class="d-flex">
                     <span>

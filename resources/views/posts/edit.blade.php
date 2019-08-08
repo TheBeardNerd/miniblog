@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+    Edit Post - {{ $post-> title }}
+@endsection
+
 @section('content')
 <div class="container">
     <div class="card text-left">
@@ -17,23 +21,24 @@
             </span>
         </div>
         <div class="card-body">
+            @include('errors')
             <form method="POST" action="/posts/{{ $post->id }}">
 
                 @method('PATCH')
                 @csrf
 
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="text" name="title" placeholder="Title" value="{{ $post->title }}" required>
+                    <label for="title">Title:</label>
+                    <input class="form-control form-control-lg" type="text" name="title" value="{{ $post->title }}" required>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control form-control-lg" name="post" placeholder="Post" required>{{ $post->post }}</textarea>
+                    <label for="post">Post:</label>
+                    <textarea class="form-control form-control-lg" name="post" required>{{ $post->post }}</textarea>
                 </div>
                 <span>
-                    <button class="btn btn-sm btn-secondary" type="button">
-                        <a href="/posts/{{ $post->id }}" class="text-decoration-none text-white">
-                            <i class="fas fa-arrow-left fa-lg"></i>
-                        </a>
-                    </button>
+                    <a href="/posts/{{ $post->id }}" role="button" class="btn btn-sm btn-secondary mr-2">
+                        <i class="fas fa-arrow-left fa-lg"></i>
+                    </a>
                 </span>
                 <span class="form-group text-left">
                     <button type="submit" class="btn btn-sm submit">Save Post</button>

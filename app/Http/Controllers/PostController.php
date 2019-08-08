@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Mail\PostCreated;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::where('owner_id', auth()->id())->get();
 
         return view('posts.index', compact('posts'));
     }
@@ -26,6 +31,7 @@ class PostController extends Controller
      */
     public function create()
     {
+
         return view('posts.create');
     }
 
@@ -35,14 +41,21 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Post $post)
     {
+
         $validated = request()->validate([
             'title' => 'required|min:3|max:255',
             'post' => 'required|min:3|max:255'
         ]);
 
+        $validated['owner_id'] = auth()->id();
+
         Post::create($validated);
+
+        \Mail::to('travisdub1@gmail.com')->send(
+            new PostCreated($post)
+        );
 
         return redirect('/posts');
     }
@@ -55,6 +68,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $this->authorize('view', $post);
+
         return view('posts.show', compact('post'));
     }
 
@@ -65,8 +80,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Post $post)
-    // , Post $post
     {
+        $this->authorize('update', $post);
+
         return view('posts.edit', compact('post'));
     }
 
@@ -78,9 +94,15 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Post $post)
-    // Request $request, Post $post
     {
-        $post->update(request(['title', 'post']));
+        $this->authorize('update', $post);
+
+        $validated = request()->validate([
+            'title' => 'required|min:3|max:255',
+            'post' => 'required|min:3|max:255'
+        ]);
+
+        $post->update($validated);
 
         return redirect('/posts');
     }
@@ -92,8 +114,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
-    // , Post $post
     {
+        $this->authorize('delete', $post);
+
         $post->delete();
 
         return redirect('/posts');
