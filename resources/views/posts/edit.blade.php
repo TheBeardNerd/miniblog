@@ -3,8 +3,18 @@
 @section('content')
 <div class="container">
     <div class="card text-left">
-        <div class="card-header">
-            <h1>Edit Post</h1>
+        <div class="card-header bg-secondary text-light d-flex">
+            <h3 class="mb-n1">Edit Post</h3>
+            <span class="ml-auto">
+                <form method="POST" action="/posts/{{ $post->id }}">
+                    @method('DELETE')
+                    @csrf
+
+                    <span class="form-group text-left">
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-times fa-lg"></i></button>
+                    </span>
+                </form>
+            </span>
         </div>
         <div class="card-body">
             <form method="POST" action="/posts/{{ $post->id }}">
@@ -27,14 +37,6 @@
                 </span>
                 <span class="form-group text-left">
                     <button type="submit" class="btn btn-sm submit">Save Post</button>
-                </span>
-            </form>
-            <form method="POST" action="/posts/{{ $post->id }}">
-                @method('DELETE')
-                @csrf
-
-                <span class="form-group text-left">
-                    <button type="submit" class="btn btn-sm btn-danger">&times;</button>
                 </span>
             </form>
         </div>

@@ -37,11 +37,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Post();
+        $validated = request()->validate([
+            'title' => 'required|min:3|max:255',
+            'post' => 'required|min:3|max:255'
+        ]);
 
-        $post->title = request('title');
-        $post->post = request('post');
-        $post->save();
+        Post::create($validated);
 
         return redirect('/posts');
     }
@@ -54,7 +55,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -63,11 +64,9 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     // , Post $post
     {
-        $post = Post::find($id);
-
         return view('posts.edit', compact('post'));
     }
 
@@ -78,15 +77,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update(Post $post)
     // Request $request, Post $post
     {
-        $post = Post::find($id);
-
-
-        $post->title = request('title');
-        $post->post = request('post');
-        $post->save();
+        $post->update(request(['title', 'post']));
 
         return redirect('/posts');
     }
@@ -97,10 +91,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     // , Post $post
     {
-        Post::find($id)->delete();
+        $post->delete();
 
         return redirect('/posts');
     }

@@ -80,7 +80,7 @@
                     @yield('content')
             </div>
         </div>
-        <footer class="navbar navbar-expand-lg nav-color py-5 mb-4">
+        <footer id="footer" class="navbar navbar-expand-lg nav-color py-5 mb-4">
             <div class="container justify-content-center flex-column">
                 <div class="footer-links">
                     <a href="https://www.linkedin.com/in/traviswindsorcummings"><i class="fab fa-linkedin-in fa-fw"></i></a>

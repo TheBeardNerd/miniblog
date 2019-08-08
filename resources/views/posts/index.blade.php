@@ -2,19 +2,17 @@
 
 @section('content')
 <div class="container">
-    <div class="card">
-        <div class="card-body mt-2">
-            @foreach ($posts as $post)
-                <div class="card text-left mb-2">
-                    <div class="card-header pt-3">
-                        <h4>{{ $post->title }}</h4>
-                    </div>
-                    <div class="card-body">
-                        <blockquote class="blockquote">{{ $post->post }}</blockquote>
-                    </div>
-                </div>
-            @endforeach
+    @foreach ($posts as $post)
+        <div class="card text-left mb-2">
+            <div class="card-header links bg-secondary">
+                <a href="/posts/{{ $post->id }}">
+                    <h3 class="mb-n1">{{ $post->title }}</h3>
+                </a>
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-n1">{{ $post->post }}</blockquote>
+            </div>
         </div>
-    </div>
+    @endforeach
 </div>
 @endsection
