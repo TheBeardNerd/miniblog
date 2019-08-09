@@ -36,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'owner_id'); // select * from posts where owner_id = user
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'owner_id'); // select * from comments where owner_id = user
+    }
 }

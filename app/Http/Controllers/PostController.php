@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use App\Mail\PostCreated;
 use Illuminate\Http\Request;
+use App\Events\PostCreated;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -19,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('owner_id', auth()->id())->get();
+        $posts = auth()->user()->posts;
 
         return view('posts.index', compact('posts'));
     }
@@ -51,11 +52,9 @@ class PostController extends Controller
 
         $validated['owner_id'] = auth()->id();
 
-        Post::create($validated);
+        $post = Post::create($validated);
 
-        \Mail::to('travisdub1@gmail.com')->send(
-            new PostCreated($post)
-        );
+        event(new PostCreated($post));
 
         return redirect('/posts');
     }

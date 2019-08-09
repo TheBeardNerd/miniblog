@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,6 +42,8 @@ class CommentController extends Controller
     public function store(Post $post)
     {
         $validated = request()->validate(['comment' => 'required|max:255']);
+
+        $validated['owner_id'] = auth()->id();
 
         $post->addComment($validated);
 
@@ -85,6 +92,10 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $this->authorize('delete', $comment);
+
+        $comment->delete();
+
+        return back();
     }
 }

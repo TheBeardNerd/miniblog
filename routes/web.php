@@ -27,5 +27,5 @@ Route::get('/', 'PostController@index');
 /*
     Comment Routes
 **/
-Route::resource('comments', 'CommentController')->middleware('guest');
-Route::post('/posts/{post}/comments', 'CommentController@store')->middleware('guest');
+Route::resource('comments', 'CommentController')->middleware('auth');
+Route::post('/posts/{post}/comments', 'CommentController@store')->middleware('auth');

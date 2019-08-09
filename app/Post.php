@@ -10,6 +10,11 @@ class Post extends Model
         'title', 'post', 'owner_id'
     ];
 
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

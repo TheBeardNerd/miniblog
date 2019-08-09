@@ -1,5 +1,5 @@
 @component('mail::message')
-# New Post: {{ $post->title }}!
+# New Post: {{ $post->title }}
 
 {{ $post->post }}
 
