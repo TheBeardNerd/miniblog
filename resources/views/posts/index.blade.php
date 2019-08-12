@@ -12,9 +12,12 @@
                 <a href="/posts/{{ $post->id }}">
                     <h3 class="mb-n1">{{ $post->title }}</h3>
                 </a>
+                <small class="text-light">Posted By: {{ $post->owner->name }} on {{ $post->created_at->format('l F, Y') }} at {{ $post->created_at->format('g:i:s') }}</small>
             </div>
             <div class="card-body">
-                <blockquote class="blockquote mb-n1">{{ $post->post }}</blockquote>
+                <div class="container">
+                    <blockquote class="blockquote mb-n1">{{ $post->post }}</blockquote>
+                </div>
             </div>
         </div>
     @endforeach
