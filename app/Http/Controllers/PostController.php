@@ -20,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = auth()->user()->posts;
+        $posts = Post::all();
 
         return view('posts.index', compact('posts'));
     }
@@ -67,8 +67,6 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $this->authorize('view', $post);
-
         return view('posts.show', compact('post'));
     }
 

@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\CommentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +29,5 @@ Route::get('/', 'PostController@index');
 **/
 Route::resource('comments', 'CommentController')->middleware('auth');
 Route::post('/posts/{post}/comments', 'CommentController@store')->middleware('auth');
+
+Route::get('/profiles/{user}', 'ProfileController@show');

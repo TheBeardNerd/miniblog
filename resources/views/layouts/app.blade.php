@@ -55,9 +55,14 @@
                                 </a>
 
                                 <div class="dropdown-menu links text-dark dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item text-dark" href="/profiles/{{ Auth::user()->id }}">
+                                        <i class="far fa-user-circle text-success"></i>
+                                        Profile
+                                    </a>
                                     <a class="dropdown-item text-dark" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt text-success"></i>
+                                                        document.getElementById('logout-form').submit();">
+                                        <i class="fas fa-sign-out-alt text-success"></i>
                                         {{ __('Logout') }}
                                     </a>
 
@@ -81,7 +86,7 @@
                     @yield('content')
             </div>
         </div>
-        <footer id="footer" class="navbar navbar-expand-lg nav-color py-5 mb-4">
+        <footer id="footer" class="navbar navbar-expand-lg nav-color">
             <div class="container justify-content-center flex-column">
                 <div class="footer-links">
                     <a href="https://www.linkedin.com/in/traviswindsorcummings"><i class="fab fa-linkedin-in fa-fw"></i></a>
@@ -90,8 +95,9 @@
                     <a href="https://github.com/TheBeardNerd"><i class="fab fa-github fa-fw"></i></a>
                     <a href="https://codepen.io/TravisWindsor-Cummings/"><i class="fab fa-codepen fa-fw"></i></a>
                 </div>
-                <div class="text-white pt-1">
-                    <p>Made with <i class="far fa-heart mx-1 text-success"></i> by Travis Windsor-Cummings</p>
+                <div class="text-white name-links pt-1">
+                    Made with <i class="far fa-heart mx-1 text-success"></i> by
+                    <a href="http://travis.windsor-cummings.com">Travis Windsor-Cummings</a>
                 </div>
             </div>
         </footer>

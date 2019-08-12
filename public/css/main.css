@@ -17,7 +17,7 @@ html, body {
 .links > a,
 .create > a {
     color: #F9FDFF;
-    font-size: 1.25em;
+    font-size: 1em;
     letter-spacing: .12em;
     font-weight: 600;
     text-decoration: none;
@@ -27,6 +27,17 @@ html, body {
 .links > a:hover,
 .create > a:hover {
     color: #D8DEE0;
+}
+
+.name-links > a {
+    color: #5cb85c;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.name-links > a:hover {
+    color: #4C974C;
 }
 
 .nav-logo {
@@ -97,27 +108,23 @@ margin-left: 1.25em;
 
 .content {
     text-align: center;
+    display: flex;
+    min-height: 63vh;
+    height: auto !important;
+    flex-direction: column;
+
+}
+#footer {
+    height: 12em;
+    padding-top: 2em;
 }
 
 .title {
-    font-size: 32px;
-    font-weight: 600;
-}
-
-.content-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.content-area {
-    width: 90%;
-    font-size: 2em;
-    text-align: left;
-    padding: .5em .5em;
-    border: 1px solid #D8DEE0;
-    border-radius: 5px;
-    box-shadow: inset 0px 0px 50px 0px rgba(45,74,89,0.15);
+    color: #F9FDFF;
+    letter-spacing: .07em;
+    font-weight: 500;
+    text-decoration: none;
+    text-transform: uppercase;
 }
 
 .errors {
@@ -138,7 +145,7 @@ margin-left: 1.25em;
 }
 
 .mar {
-    margin: 6em 0em 3em 0em;
+    margin-top: 6em;
 }
 
 .text-lg {

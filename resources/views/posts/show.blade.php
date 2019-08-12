@@ -7,10 +7,16 @@
 @section('content')
 <div class="container">
     <div class="card text-left">
-        <div class="card-header bg-secondary text-light d-flex">
+        <div class="card-header bg-secondary d-flex">
             <div class="container">
-                <h3 class="mb-n1">{{ $post->title }}</h3>
-                <small>Posted By: {{ $post->owner->name }} on {{ $post->created_at->format('l F, Y') }} at {{ $post->created_at->format('g:i:s') }}</small>
+                <h3 class="title mb-n1">{{ $post->title }}</h3>
+                <small class="text-light links">
+                    Posted by
+                    <a href="/profiles/{{ $post->owner->id }}">
+                        {{ $post->owner->name }}
+                    </a>
+                    {{ $post->created_at->diffForHumans() }}
+                </small>
             </div>
             <span class="ml-auto mt-2">
                 <form method="POST" action="/posts/{{ $post->id }}">
@@ -56,21 +62,28 @@
                     @if ($post->comments->count())
                         @foreach ($post->comments as $comment)
                             <div class="card mb-2">
-                                <div class="card-body d-flex">
-                                    <div class="container">
-                                        {{ $comment->comment }}
-                                        <br>
-                                        <small>Posted By: {{ $comment->owner->name }} on {{ $comment->created_at->format('l F, Y') }} at {{ $comment->created_at->format('g:i:s') }}</small>
-                                    </div>
+                                <div class="card-header bg-secondary text-light d-flex">
+                                        <small class="links text-light">
+                                            Posted by
+                                            <a href="/profiles/{{ $comment->owner->id }}">
+                                                {{ $comment->owner->name }}
+                                            </a>
+                                            {{ $comment->created_at->diffForHumans() }}
+                                        </small>
                                     <span class="ml-auto">
                                         <form method="POST" action="/comments/{{ $comment->id }}">
                                             @method('DELETE')
                                             @csrf
                                             <span class="form-group text-left">
-                                                <button type="submit" class="btn btn-sm btn-danger"><i class="far fa-trash-alt fa-lg"></i></button>
+                                                <button type="submit" class="btn btn-sm btn-danger"><i class="far fa-trash-alt fa-sm"></i></button>
                                             </span>
                                         </form>
                                     </span>
+                                </div>
+                                <div class="card-body d-flex">
+                                    <div class="container">
+                                        {{ $comment->comment }}
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
