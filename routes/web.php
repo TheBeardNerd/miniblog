@@ -16,13 +16,13 @@
     Authorization Routes
 **/
 Auth::routes();
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'HomeController@index')->middleware('auth');
 
 /*
     Post Routes
 **/
-Route::resource('posts', 'PostController');
-Route::get('/', 'PostController@index');
+Route::resource('posts', 'PostController')->middleware('auth');
+Route::get('/', 'PostController@index')->middleware('auth');
 
 /*
     Comment Routes
@@ -30,4 +30,13 @@ Route::get('/', 'PostController@index');
 Route::resource('comments', 'CommentController')->middleware('auth');
 Route::post('/posts/{post}/comments', 'CommentController@store')->middleware('auth');
 
-Route::get('/profiles/{user}', 'ProfileController@show');
+/*
+    Profile Routes
+**/
+Route::get('/profiles/{user}', 'ProfileController@show')->middleware('auth');
+
+/*
+    Avatar
+**/
+
+Route::post('users/{user}/avatar', 'UserAvatarController@store')->middleware('auth');

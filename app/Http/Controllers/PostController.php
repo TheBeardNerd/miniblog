@@ -9,10 +9,6 @@ use Carbon\Carbon;
 
 class PostController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::all()->sortByDesc('created_at');
 
         return view('posts.index', compact('posts'));
     }
@@ -78,7 +74,6 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $this->authorize('update', $post);
 
         return view('posts.edit', compact('post'));
     }
@@ -92,8 +87,6 @@ class PostController extends Controller
      */
     public function update(Post $post)
     {
-        $this->authorize('update', $post);
-
         $validated = request()->validate([
             'title' => 'required|min:3|max:255',
             'post' => 'required|min:3|max:255'
@@ -112,8 +105,6 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $this->authorize('delete', $post);
-
         $post->delete();
 
         return redirect('/posts');

@@ -10,7 +10,7 @@
         <div class="card-header bg-secondary d-flex">
             <div class="container">
                 <h3 class="title mb-n1">{{ $post->title }}</h3>
-                <small class="text-light links">
+                <small class="text-light name-links">
                     Posted by
                     <a href="/profiles/{{ $post->owner->id }}">
                         {{ $post->owner->name }}
@@ -63,13 +63,13 @@
                         @foreach ($post->comments as $comment)
                             <div class="card mb-2">
                                 <div class="card-header bg-secondary text-light d-flex">
-                                        <small class="links text-light">
-                                            Posted by
-                                            <a href="/profiles/{{ $comment->owner->id }}">
-                                                {{ $comment->owner->name }}
-                                            </a>
-                                            {{ $comment->created_at->diffForHumans() }}
-                                        </small>
+                                    <small class="name-links text-light pt-1">
+                                        Posted by
+                                        <a href="/profiles/{{ $comment->owner->id }}">
+                                            {{ $comment->owner->name }}
+                                        </a>
+                                        {{ $comment->created_at->diffForHumans() }}
+                                    </small>
                                     <span class="ml-auto">
                                         <form method="POST" action="/comments/{{ $comment->id }}">
                                             @method('DELETE')
