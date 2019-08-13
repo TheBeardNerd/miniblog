@@ -9,6 +9,28 @@ html, body {
     margin: 0;
 }
 
+.avatar {
+    border-radius: 50%;
+}
+
+.file-input {
+    background-color: #F9FDFF;
+    color: #6F726C;
+    width: 250px;
+    height: 38px;
+    margin-top: 7px;
+    padding-top: 7px;
+    margin-left: -5em;
+    border: 1px solid #6F726C;
+    border-radius: 4px 0px 0px 4px;
+}
+
+.file-input:hover {
+    background-color: #EEEEEE;
+    color: #6F726C;
+    cursor: pointer;
+}
+
 .nav-color {
     background-color: #405A68;
     color: #F9FDFF;

@@ -19,6 +19,14 @@ class User extends Authenticatable
         'name', 'email', 'password', 'avatar_path'
     ];
 
+    public function avatar()
+    {
+        if (! $this->avatar_path) {
+            return 'avatars/default.jpg';
+        }
+        return $this->avatar_path;
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

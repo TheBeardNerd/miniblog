@@ -8,8 +8,11 @@
 <div class="container">
     <div class="card text-left">
         <div class="card-header bg-secondary d-flex">
-            <div class="container">
-                <h3 class="title mb-n1">{{ $post->title }}</h3>
+            <div>
+                <div class="d-flex">
+                    <img src="/storage/{{ $post->owner->avatar() }}" alt="{{ $post->owner->name }}" class="avatar mr-2" width="30" height="30" />
+                    <h3 class="title mb-n1">{{ $post->title }}</h3>
+                </div>
                 <small class="text-light name-links">
                     Posted by
                     <a href="/profiles/{{ $post->owner->id }}">

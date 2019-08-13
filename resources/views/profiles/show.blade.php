@@ -8,16 +8,24 @@
 
     <div class="container">
 
+        <img src="/storage/{{ $profileUser->avatar() }}" alt="user-profile-image" width="100" height="100" class="img-thumbnail mb-2 avatar" />
+
         @can ('update', $profileUser)
-            <form method="POST" action="/users/{{ $profileUser->id }}/avatar" enctype="multipart/form-data">
+            <form id="uploadAvatar" method="POST" action="/users/{{ $profileUser->id }}/avatar" enctype="multipart/form-data">
                 @csrf
-                <div class="d-flex flex-column align-items-center">
-                    <input name="avatar" type="file" class="file mb-2 col-sm-2">
-                    <button type="submit" class="btn btn-success">Add Profile Image</button>
+                <div class="d-flex justify-content-center">
+                    <div class="input-group col-sm-4">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="avatarUpload" aria-describedby="avatarUploadAddOn">
+                            <label class="file-input" for="avatarUpload">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="button" id="avatarUploadAddOn">Upload Avatar</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         @endcan
-        <img src="{{ $profileUser->avatar_path }}" alt="user-profile-image" class="img-thumbnail">
 
         <h1>{{ $profileUser->name }}</h1>
         <small>
@@ -39,7 +47,7 @@
                                 {{ $post->owner->name }}
                             </a>
                         </small>
-                        <small class="ml-auto">
+                        <small class="ml-auto mt-1">
                             {{ $post->created_at->diffForHumans() }}
                         </small>
                     </div>
