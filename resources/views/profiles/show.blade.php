@@ -8,7 +8,9 @@
 
     <div class="container">
 
-        <img src="/storage/{{ $profileUser->avatar() }}" alt="user-profile-image" width="100" height="100" class="img-thumbnail mb-2 avatar" />
+        <h1>{{ $profileUser->name }}</h1>
+
+        <img src="/storage/{{ $profileUser->avatar() }}" alt="user-profile-image" width="100" height="100" class="avatar mb-2" />
 
         @can ('update', $profileUser)
             <form id="uploadAvatar" method="POST" action="/users/{{ $profileUser->id }}/avatar" enctype="multipart/form-data">
@@ -26,8 +28,6 @@
                 </div>
             </form>
         @endcan
-
-        <h1>{{ $profileUser->name }}</h1>
         <small>
             Created {{ $profileUser->created_at->diffForHumans() }}
         </small>
