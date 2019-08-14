@@ -22,6 +22,15 @@
         <!-- favicon -->
         <link rel="icon" type="image/ico" href="{{ URL::asset('images/skull-crossbones.ico') }}">
 
+        <!-- Scripts -->
+        <script>
+            window.App = {!! json_encode([
+                'csrfToken' => csrf_token(),
+                'user' => Auth::user(),
+                'signedIn' => Auth::check()
+            ]) !!};
+        </script>
+
     </head>
     <body>
         <div class="border">
@@ -83,10 +92,8 @@
                     </div>
                 </div>
             </nav>
-            <div class="content mar">
-                <div id="app">
-                    @yield('content')
-                </div>
+            <div id="app" class="content mar">
+                @yield('content')
             </div>
         </div>
         <footer id="footer" class="navbar navbar-expand-lg nav-color">
@@ -104,7 +111,6 @@
                 </div>
             </div>
         </footer>
-
-        <script src="{{ Url::asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

@@ -11,6 +11,7 @@ html, body {
 
 .avatar {
     border-radius: 50%;
+    border: 1px solid #F9FDFF;
 }
 
 .file-input {

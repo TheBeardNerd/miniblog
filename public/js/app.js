@@ -1845,7 +1845,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "avatar-form",
+  props: ['user'],
+  data: function data() {
+    return {
+      avatar: '/storage/' + this.user.avatar_path
+    };
+  },
+  computed: {
+    canUpdate: function canUpdate() {
+      var _this = this;
+
+      return this.authorize(function (user) {
+        return user.id === _this.user.id;
+      });
+    }
+  },
+  methods: {
+    onChange: function onChange(event) {
+      var _this2 = this;
+
+      if (!event.target.files.length) return;
+      var avatar = event.target.files[0];
+      var reader = new FileReader();
+      reader.readAsDataURL(avatar);
+
+      reader.onload = function (event) {
+        _this2.avatar = event.target.result;
+      };
+
+      this.persist(avatar);
+    },
+    persist: function persist(avatar) {
+      var data = new FormData();
+      data.append('avatar', avatar);
+      axios.post("/users/".concat(this.user.id, "/avatar"), data).then(console.log('Avatar uploaded!'));
+    }
+  }
+});
 
 /***/ }),
 
@@ -37143,16 +37189,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("h1", { domProps: { textContent: _vm._s(_vm.user.name) } }),
+    _vm._v(" "),
+    _c("img", {
+      staticClass: "avatar mb-2",
+      attrs: { src: _vm.avatar, width: "100", height: "100" }
+    }),
+    _vm._v(" "),
+    _vm.canUpdate
+      ? _c(
+          "form",
+          {
+            attrs: {
+              id: "uploadAvatar",
+              method: "POST",
+              enctype: "multipart/form-data"
+            }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "d-flex flex-column align-items-center" },
+              [
+                _c("input", {
+                  staticClass: "col-sm-3 mb-2",
+                  attrs: { type: "file", name: "avatar", accept: "image/*" },
+                  on: { change: _vm.onChange }
+                })
+              ]
+            )
+          ]
+        )
+      : _vm._e()
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("Hello.")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -49308,8 +49380,6 @@ module.exports = function(module) {
  * building robust, powerful web applications using Vue and Laravel.
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -49320,7 +49390,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('avatar-form', __webpack_require__(/*! ./components/AvatarForm.vue */ "./resources/js/components/AvatarForm.vue"));
+
+Vue.component('avatar-form', __webpack_require__(/*! ./components/AvatarForm.vue */ "./resources/js/components/AvatarForm.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -49353,6 +49424,17 @@ try {
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 } catch (e) {}
+/*
+    Vue
+**/
+
+
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+Vue.prototype.authorize = function (handler) {
+  var user = window.App.user;
+  return user ? handler(user) : false;
+};
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -49361,7 +49443,10 @@ try {
 
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common = {
+  'X-CSRF-TOKEN': window.App.csrfToken,
+  'X-Requested-With': 'XMLHttpRequest'
+};
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
@@ -49478,8 +49563,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/traviswindsor-cummings/projects/miniblog/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/traviswindsor-cummings/projects/miniblog/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/traviswc/Desktop/projects/miniblog/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/traviswc/Desktop/projects/miniblog/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -12,7 +12,7 @@
                 <div>
                     <div class="d-flex links">
                         <a href="/profiles/{{ $post->owner->id }}">
-                            <img src="/storage/{{ $post->owner->avatar() }}" alt="{{ $post->owner->name }}"
+                            <img src="/storage/{{ $post->owner->avatar_path }}" alt="{{ $post->owner->name }}"
                                 class="avatar mr-2" width="30" height="30" />
                         </a>
                         <a class="mr-1" href="/posts/{{ $post->id }}">
