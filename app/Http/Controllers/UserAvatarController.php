@@ -16,6 +16,7 @@ class UserAvatarController extends Controller
             'avatar_path' => request()->file('avatar')->store('avatars', 'public')
         ]);
 
-        return response([], 204);
+        return response([], 204)
+        ->with('flash', 'Your avatar has been updated!');
     }
 }

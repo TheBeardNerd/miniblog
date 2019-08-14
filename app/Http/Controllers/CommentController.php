@@ -47,7 +47,8 @@ class CommentController extends Controller
 
         $post->addComment($validated);
 
-        return back();
+        return back()
+            ->with('flash', 'Your comment has been posted!');
     }
 
     /**
@@ -96,6 +97,7 @@ class CommentController extends Controller
 
         $comment->delete();
 
-        return back();
+        return back()
+        ->with('flash', 'Your comment has been deleted!');
     }
 }

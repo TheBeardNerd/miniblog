@@ -52,7 +52,8 @@ class PostController extends Controller
 
         event(new PostCreated($post));
 
-        return redirect('/posts');
+        return redirect('/posts')
+            ->with('flash', 'Your post has been created!');
     }
 
     /**
@@ -94,7 +95,8 @@ class PostController extends Controller
 
         $post->update($validated);
 
-        return redirect('/posts');
+        return redirect('/posts')
+            ->with('flash', 'Your post has been updated!');
     }
 
     /**
@@ -107,6 +109,7 @@ class PostController extends Controller
     {
         $post->delete();
 
-        return redirect('/posts');
+        return redirect('/posts')
+            ->with('flash', 'Your post has been deleted!');
     }
 }
